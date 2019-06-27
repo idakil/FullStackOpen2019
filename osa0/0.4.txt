@@ -1,0 +1,34 @@
+
+note over Selain:
+Ladataan sivu kuten materiaalin esimerkissä (ja tehtävän lopussa).
+end note
+
+note over Selain:
+Lisätään uusi note.
+end note
+
+Selain->Palvelin: HTTP POST .../new_note
+Palvelin-->Selain: Status Code: 302
+
+note over Selain: 
+Status Code 302 --> Redirect -pyyntö, 
+jolloin sivu ladataan uudestaan
+eli kaikki pyynnöt uusiksi.
+end note
+
+Selain->Palvelin: HTTP GET .../notes
+Palvelin-->Selain: HTML
+Selain->Palvelin: HTTP GET .../main.css 
+Palvelin-->Selain: main.css
+Selain->Palvelin: HTTP GET .../main.js
+Palvelin-->Selain: main.js
+note over Selain:
+js-koodi pyytää JSON-datan palvelimelta
+end note
+Selain->Palvelin: HTTP GET .../data.json
+Palvelin-->Selain: [{*JSON*}]
+
+
+
+
+

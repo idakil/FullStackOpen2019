@@ -1,0 +1,14 @@
+
+note over Selain:
+Ladataan sivu.
+end note
+
+Selain->Palvelin: HTTP GET .../spa
+Palvelin-->Selain: HTML
+Selain->Palvelin: HTTP GET .../main.css 
+Palvelin-->Selain: main.css
+Selain->Palvelin: HTTP GET .../spa.js
+Palvelin-->Selain: main.js
+Selain->Palvelin: HTTP GET .../data.json
+Palvelin-->Selain: [{*JSON*}]
+
