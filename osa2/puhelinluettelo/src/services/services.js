@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/persons'
-
+//const baseUrl = 'https://sleepy-tor-03663.herokuapp.com/api/persons'
+const baseUrl = '/api/persons'
 const getAll = async () => {
     const request = axios.get(baseUrl)
     const response = await request
-    return response.data.persons
+    return response.data
   }
   
   const create = async newObject => {

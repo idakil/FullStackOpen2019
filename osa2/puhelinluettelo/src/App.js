@@ -70,6 +70,9 @@ const App = () => {
                     getAll();
                     setNotification({message: `Added ${newName}`, error: false})
                 })
+                .catch(error =>{
+                    setNotification({message: error.response.data.error, error: true})
+                })
 
         }
     }
