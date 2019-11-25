@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlkYSIsImlkIjoiNWRkOWE4NWRiYWYyNDY1ZjJjYzcxOGNlIiwiaWF0IjoxNTc0NTQ5OTE4fQ.luvUWAJLMxn-cPFUbhqj9Kdx_dNSdcDbbXxLagwbF-0
+
+{
+    "title": "myblog2",
+    "author": "ida",
+    "url": "ida.com",
+    "likes": 999
+}
