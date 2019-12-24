@@ -1,0 +1,70 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are awesome!",
+      "id": 1
+    },
+    {
+      "content": "best feature ever <3",
+      "id": 2
+    },
+    {
+      "content": "vv",
+      "id": 3
+    },
+    {
+      "content": "bb",
+      "id": 4
+    },
+    {
+      "content": "c",
+      "id": 5
+    },
+    {
+      "content": "b",
+      "id": 6
+    },
+    {
+      "content": "x",
+      "id": 7
+    },
+    {
+      "content": "dd",
+      "id": 8
+    },
+    {
+      "content": "nyt toimii",
+      "id": 9
+    },
+    {
+      "content": "pöö",
+      "id": 10
+    },
+    {
+      "content": "bbb",
+      "id": 11
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "toimiiko 0303003",
+      "number": "",
+      "id": 2
+    },
+    {
+      "name": "moi",
+      "number": "1234",
+      "id": 3
+    },
+    {
+      "name": "h",
+      "number": "edfg",
+      "id": 4
+    }
+  ]
+}
