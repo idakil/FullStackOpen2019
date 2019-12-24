@@ -45,26 +45,34 @@ blogRouter.post('/', async (request, response, next) => {
 blogRouter.delete('/:id', async (req, res, next) => {
     try {
         const blog = await Blog.findById(req.params.id)
-        const decodedToken = jwt.verify(req.token, process.env.SECRET, (err, decodedToken) => {
+        const decodedToken = jwt.verify(req.token, process.env.SECRET, async (err, decodedToken) => {
             if(err) res.status(401).end()
-        })
-        if(decodedToken){
-            const user = await User.findById(decodedToken.id)
+            const user = await User.findById(decodedToken.id)  
             if (blog.user.toString() === user._id.toString()) {
                 await Blog.deleteOne({ _id: blog._id })
                 res.json(blog)
             }
-        }
+        })
     } catch (exception) {
         next(exception)
     }
-
 })
 
-blogRouter.put('/:id', async (req, res) => {
-    const updated = req.body;
-    const blog = await Blog.findByIdAndUpdate(req.params.id, updated)
-    res.json(blog)
+blogRouter.put('/:id', async (req, res, next) => {
+    try{
+        const updated = req.body;
+        const decodedToken = jwt.verify(req.token, process.env.SECRET, async (err, decodedToken) => {
+            if(err) res.status(401).end()
+            const user = await User.findById(decodedToken.id)
+            if(updated.user.id.toString() === user.id.toString()){
+                const blog = await Blog.findByIdAndUpdate(req.params.id, {likes: updated.likes})
+                res.json(blog)
+            }
+        })
+    }catch(ex){
+        next(ex)
+    }
+
 })
 
 module.exports = blogRouter
