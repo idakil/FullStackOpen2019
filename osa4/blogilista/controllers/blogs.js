@@ -64,8 +64,8 @@ blogRouter.put('/:id', async (req, res, next) => {
         const decodedToken = jwt.verify(req.token, process.env.SECRET, async (err, decodedToken) => {
             if(err) res.status(401).end()
             const user = await User.findById(decodedToken.id)
-            if(updated.user.id.toString() === user.id.toString()){
-                const blog = await Blog.findByIdAndUpdate(req.params.id, {likes: updated.likes})
+            if(user){
+                const blog = await Blog.findByIdAndUpdate(req.params.id, {likes: updated.likes}, {new:true}).populate('user')
                 res.json(blog)
             }
         })
@@ -73,6 +73,14 @@ blogRouter.put('/:id', async (req, res, next) => {
         next(ex)
     }
 
+})
+
+blogRouter.post('/:id/comments', async (req,res,next) => {
+    const blog = await Blog.findById(req.params.id)
+    console.log(req.body.comment)
+    blog.comments = blog.comments.concat(req.body.comment)
+    await blog.save()
+    res.json(req.body)
 })
 
 module.exports = blogRouter
