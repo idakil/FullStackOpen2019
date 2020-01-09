@@ -5,7 +5,6 @@ import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import EditForm from './components/EditAuthor'
 import Recommendations from './components/Recommend'
-
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/react-hooks'
 
@@ -55,14 +54,7 @@ mutation addBook($title: String!, $published: Int, $author: String, $genres: [St
 }
 ${BOOK_DETAILS}
 `
-/**
- *  title
-    published
-    genres
-    author{
-      name
-    }
- */
+
 const SET_BORN = gql`
 mutation editAuthor($name: String, $born: Int) {
   editAuthor(
@@ -138,7 +130,7 @@ const App = () => {
 
   const [addBook] = useMutation(ADD_BOOK, {
     onError: handleError,
-    refetchQueries: [{ query: BOOKS_BY_GENRE }, { query: ALL_AUTHORS }],
+    refetchQueries: [{ query: ALL_AUTHORS },{ query: BOOKS_BY_GENRE } ],
   })
   const [editAuthor] = useMutation(SET_BORN, {
     refetchQueries: [{ query: ALL_AUTHORS }]
@@ -161,14 +153,14 @@ const App = () => {
 
   return (
     <div>
-      <div>
+      <div style={{display: "flex"}}>
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
         <button onClick={() => setPage('login')} style={{ display: (token === null ? 'block' : 'none') }}>login</button>
         <button onClick={() => setPage('edit')} style={{ display: (token === null ? 'none' : 'block') }}>edit</button>
         <button onClick={() => setPage('add')} style={{ display: (token === null ? 'none' : 'block') }}>add book</button>
         <button onClick={() => setPage('recommendations')} style={{ display: (token === null ? 'none' : 'block') }}>recommendations</button>
-        <button onClick={logout}>logout</button>
+        <button onClick={logout} style={{ display: (token === null ? 'none' : 'block') }}>logout</button>
       </div>
 
       {errorNotification()}
@@ -206,6 +198,7 @@ const App = () => {
         show={page === 'recommendations'}
         client={client}
         token={token}
+        query={BOOKS_BY_GENRE}
       />
 
     </div>

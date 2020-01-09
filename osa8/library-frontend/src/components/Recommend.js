@@ -1,33 +1,20 @@
-
 import React, { useState, useEffect } from 'react'
-import { gql } from 'apollo-boost'
 
-const BOOKS_BY_GENRE = gql`
-
-  query allBooks($genre: String)  {
-      allBooks(genre: $genre){
-        title,
-        published,
-        author{name},
-        id,
-        genres
-      }
-  }
-
-`
 
 const Recommendations = (props) => {
     const [books, setBooks] = useState([])
     const client = props.client
+    const query = props.query
+    const token = props.token
 
     useEffect(() => {
-        if (props.token) {
+        if (token) {
             const userString = localStorage.getItem('user')
             const user = JSON.parse(userString)
             const booksByGenre = async () => {
                 const favoriteGenre = user.favoriteGenre
                 const data = await client.query({
-                    query: BOOKS_BY_GENRE,
+                    query: query,
                     variables: { genre: favoriteGenre }
                 })
                 if (!data.loading) {
@@ -36,14 +23,14 @@ const Recommendations = (props) => {
             }
             booksByGenre()
         }
-    }, [props.token])
+    }, [props.show])
     if (!props.show) {
         return null
     }
 
-
     return (
         <div>
+            <h2>books in your favorite genre</h2>
             <table>
                 <tbody>
                     <tr>

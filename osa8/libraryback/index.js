@@ -111,8 +111,11 @@ const resolvers = {
             if (!currentUser)
                 throw new AuthenticationError("not authenticated")
             const author = await Author.findOne({ name: args.name })
+            if(author === null)
+                return null
             try {
-                author === null ? null : author.born = args.born && await author.save()
+                author.born = args.born
+                await author.save()
             } catch (e) {
                 throw new UserInputError(e.message, {
                     invalidArgs: args,

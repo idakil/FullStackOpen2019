@@ -4,27 +4,33 @@ const Books = (props) => {
   const [books, setBooks] = useState([])
 
   useEffect(() => {
-    if(!props.books.loading)
+    if (!props.books.loading)
       setBooks(props.books.data.allBooks)
   }, [props.books])
 
   if (props.books.loading) {
     return <div>loading</div>
   }
-
   if (!props.show) {
     return null
   }
-  const filter = (genre) => {
+
+  const distinctGenres = () => {
+    const genres = books.map(book => book.genres).flat()
+    return [...new Set(genres)]
+  }
+
+  const filterGenres = (genre) => {
     let filtered = []
     books.forEach(book => {
       book.genres.forEach(g => {
-        if(genre === g)
+        if (genre === g)
           filtered.push(book)
       })
     })
     setBooks(filtered)
   }
+
   return (
     <div>
       <h2>books</h2>
@@ -49,9 +55,11 @@ const Books = (props) => {
           )}
         </tbody>
       </table>
-      {books.map(book => book.genres.map(genre =>
-        <button key={book.id + genre} onClick={() => filter(genre)}>{genre}</button>
-      ))}
+      {
+        distinctGenres().map(genre =>
+          <button key={genre} onClick={() => filterGenres(genre)}>{genre}</button>)
+      }
+
     </div>
   )
 }
